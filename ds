@@ -350,3 +350,408 @@ void main(){
         }
     }
 }
+
+
+
+program 10
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+ int info;
+ struct node *llink;
+ struct node *rlink;
+};
+typedef struct node *NODE;
+NODE insert(NODE root,int item)
+{
+ NODE temp,cur,prev;
+ temp=(NODE)malloc(sizeof(NODE));
+ temp->info=item;
+ temp->llink=temp->rlink=NULL;
+ if(root==NULL)
+ return temp;
+ cur=root;
+ 
+while(cur!=NULL)
+ 
+{
+ 
+prev=cur;
+ 
+if(cur->info==item)
+ 
+{
+ 
+printf("insertion not possible");
+ 
+free(temp);
+ 
+return;
+ 
+}
+ 
+if(cur->info > item)
+ 
+cur=cur->llink;
+ 
+else
+cur=cur->rlink;
+ 
+}
+ if(prev->info>item)
+ prev->llink=temp;
+ else 
+ prev->rlink=temp;
+ return root;
+}
+void search(NODE root,int key)
+{
+ NODE cur;
+ cur=root;
+ 
+if(root==NULL)
+ 
+{
+ 
+printf("tree is empty");
+ 
+return;
+ 
+}
+ 
+while(cur!=NULL)
+ 
+{
+ 
+if(cur->info==key)
+ 
+{
+ 
+printf("key element is found");
+ 
+return;
+ 
+}
+ 
+if((cur->info)>key)
+ 
+cur=cur->llink;
+ 
+else 
+ 
+cur=cur->rlink;
+ 
+}
+ printf("key not found");
+} 
+void preorder(NODE root)
+{
+if(root==NULL) return;
+printf("%d\t",root->info);
+preorder(root->llink);
+preorder(root->rlink);
+}
+void postorder(NODE root)
+{
+ if(root==NULL)return;
+ postorder(root->llink);
+ postorder(root->rlink);
+ printf("%d\t",root->info);
+}
+void inorder(NODE root)
+{
+ if(root==NULL)return;
+ inorder(root->llink);
+ printf("%d\t",root->info);
+ inorder(root->rlink);
+}
+void main()
+{
+ int ch,x,item,key;
+ NODE root=NULL;
+ 
+while(1)
+ 
+{
+ printf("\n1.create a BST\n2.traverse inpreorder\n3.traverse in 
+postorder\n4.inorder");
+ printf("\n5.search in a BST\n6.exit");
+ printf("\nenter choice:");
+ 
+scanf("%d",&ch);
+ 
+switch(ch)
+ 
+{
+ 
+case 1 : 
+do
+ 
+{
+ 
+printf("enter the element to be inserted:");
+ 
+scanf("%d",&item);
+ 
+root=insert(root,item);
+ 
+printf("enter 1 to continue 0 to exit");
+ 
+scanf("%d",&x);
+ 
+}while(x!=0);
+ 
+break;
+ 
+case 2 : preorder(root); 
+ 
+break;
+ 
+case 3 : postorder(root);
+ 
+break;
+ 
+case 4 : inorder(root);
+ 
+break;
+ 
+case 5 : printf("enter the element to search:");
+ 
+scanf("%d",&key);
+ 
+search(root,key);
+ 
+break;
+ 
+case 6 : exit(0);
+ 
+}
+ 
+}
+}
+
+
+program 11
+#include<stdio.h>
+#include<stdlib.h>
+int a[10][10],n,s[10]={0};
+void bfs(int u)
+ {
+ 
+int f,r,q[10],v,i,s[10]={0};
+ 
+printf("The Nodes visited from %d:",u);
+ 
+f=0;r=-1; 
+ 
+q[++r]=u; 
+ 
+s[u]=1; 
+ 
+printf(" %d",u);
+ 
+while(f<=r)
+ 
+{
+ 
+ u=q[f++]; 
+ 
+for(v=0;v<n;v++)
+ 
+if(a[u][v]==1) 
+ 
+if(s[v]==0) 
+ 
+{
+ 
+printf(" %d",v); 
+ 
+s[v]=1; 
+ 
+q[++r]=v; 
+ 
+}
+ 
+}
+ 
+printf("\n");
+ }
+void dfs(int u)
+ { 
+ int v;
+ s[u]=1;
+ printf("%d ",u);
+ 
+for(v=0;v<n;v++)
+ 
+if(a[u][v] ==1 && s[v]==0)
+ 
+dfs(v);
+ }
+int main()
+{ 
+ int u,i,j,ch;
+ while(1)
+ 
+{
+ printf("\n1.Create a graph");
+ 
+printf("\n2.Traversal using BFS");
+ 
+printf("\n3.Traversal using DFS");
+ printf("\n4.Exit");
+ 
+printf("\nEnter your choice :");
+scanf("%d",&ch);
+ 
+switch(ch)
+ 
+{
+case 1:printf("Enter the number of nodes");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+ 
+for(j=0;j<n;j++)
+{
+printf("\n Enter A[%d][%d]=",i,j);
+ 
+scanf("%d",&a[i][j]);
+}
+break;
+ 
+case 2: printf("\n Enter the starting/source verstex ");
+ 
+scanf("%d",&u);
+ 
+bfs(u);
+ 
+break; 
+ 
+case 3: printf("\n Enter the starting/source verstex ");
+ 
+scanf("%d",&u);
+ 
+for(i=0;i<10;i++) 
+ 
+s[i]=0;
+ 
+printf("The nodes visted from %d:",u);
+ 
+dfs(u);
+ 
+break;
+ 
+case 4: _Exit(0);
+ 
+}
+ 
+}
+} 
+
+
+program 12
+#include <stdio.h>
+#include <stdlib.h> 
+#define MAX 10
+int count=0;
+struct employee
+{
+ 
+int id;
+ 
+char name[15]; 
+};
+typedef struct employee EMP;
+EMP emp[MAX];
+int a[MAX];
+int create(int num) 
+{
+ 
+int key;
+ 
+key = num % 10; 
+ 
+return key;
+ 
+}
+int getemp(EMP emp[],int key) 
+ 
+{
+ 
+printf("\nEnter emp id: "); 
+scanf("%d",&emp[key].id); 
+printf("\nEnter emp name: ");
+scanf("%s",emp[key].name); 
+return key;
+}
+void display() 
+{
+int i, ch;
+printf("\n1.Display ALL\n2.Filtered Display"); 
+printf("\nEnter the choice: "); 
+scanf("%d",&ch);
+if(ch == 1) 
+{
+printf("\nThe hash table is:\n"); 
+printf("\nHTKey\tEmpID\tEmpName"); 
+for(i=0; i<MAX; i++)
+printf("\n%d\t%d\t%s", i, emp[i].id, emp[i].name);
+}
+else 
+{
+printf("\nThe hash table is:\n"); 
+printf("\nHTKey\tEmpID\tEmpName"); 
+for(i=0; i<MAX; i++)
+if(a[i]!= -1)
+printf("\n%d\t%d\t %s", i, emp[i].id, emp[i].name); 
+} 
+}
+void linear_prob(int key) 
+{
+int i; 
+if(count==MAX)
+{
+printf("Hash Table is full");
+return;
+}
+if(a[key] == -1) 
+{
+a[key]=getemp(emp,key); 
+count++;
+}
+else
+{
+printf("\nCollision Detected...!!!\n");
+i=(key+1)%MAX;
+printf("%d",i);
+while(i < MAX||i<key)
+{
+if (a[i]==-1)
+{
+a[i]=getemp(emp,i);
+count++;
+break;
+}
+else
+i=(i+1)%MAX; 
+}
+}
+} 
+void main()
+{
+int num, key, i,x; 
+printf("\nCollision handling by linear probing: "); 
+for (i=0; i < MAX; i++)
+a[i] = -1;
+do 
+{
+printf("\nEnter the data: ");
+scanf("%d", &num);
+key=create(num);
+linear_prob(key);
+display(emp);
+printf("\nDo you wish to continue? (1/0): "); 
+scanf("%d",&x);
+}while(x!=0); 
+}
